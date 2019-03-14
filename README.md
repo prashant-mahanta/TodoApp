@@ -1,5 +1,5 @@
 
-How to run this TODO APP? 
+# TODO APP
 
 First download it to your local machine
 ```sh
