@@ -48,12 +48,4 @@ We can see the following :
 # Demo (User Interface)
 ![TODO API INTERFACE](https://user-images.githubusercontent.com/25399528/54344287-84cac300-4666-11e9-98b6-65aa247e0b76.gif)
 
-## Work FLow in the demo
-1. User Login/Register
-2. Add or Delete or Update TODO LIST (through API, api developed using django restframework)
 
-Task Remaining:
-
-3. Mail the user as soon as it is time for his schedule (working.. getting some error, using django celery)
-
-4. Mark complete or incomplete schedules and show them to the user every 10 hr.
