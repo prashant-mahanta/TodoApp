@@ -13,8 +13,7 @@ activate virtual environment
 $ source ./env/bin/activate 
 ```
 
-If you have already PostgreSQL (else visit [here](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-16-04) )
-
+If you already have PostgreSQL (else visit [here](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-16-04) )
 CREATE PostgreSQL DATABASE for the project:
 ```sh
 $ sudo su - postgres
