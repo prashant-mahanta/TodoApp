@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" >
+
+<head>
+  <meta charset="UTF-8">
+  <title>Todo</title>
+  	
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css'>
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Source+Sans+Pro'>
+
+      <link rel="stylesheet" href="{% static 'todo/css/styletodo.css' %}">
+
+       <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">	
+
+
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+
+</head>
+
+<body>
+	
+  <div class="app" id="app">
+    <label>Heading</label><input id="heading" class="input form__input" name="heading"/>
+    <label>Date</label><input id="schedule" class="input form__input" type="date" name="calender" placeholder="YYYY-MM-DD" />
+    <label>Description</label><textarea id="description" class="input form__input" name="description" cols="10" rows="10"></textarea>
+    <button class="btn form__submit-btn" onclick="addToDo()" type="button" >Add</button>
+</div>
+  <div id = 'message'></div>
+
+
+  {% if todos %}
+
+  		<div style="margin-left:auto; margin-right:0;overflow-y: scroll">
+  			<form action="{% url 'logout' %}"><h2>Hi {{user.first_name}} 
+  			<button type="submit" class="btn btn-info" >Logout</button></form></h2><br>
+  		{% for todo in todos %}
+  			<div>
+  			 <label> <h7>Heading:</h7> </label> {{todo.heading}}<br>
+  				<label> Description: </label> {{todo.description}} <button type="button" class="btn btn-info" onclick="deleteTodo()">Delete</button> <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Update</button></br>
+  				<input type="hidden" value="{{todo.id}}" id="todelete">
+  				<label> Time: </label> {{todo.schedule}} <br><br>
+  				
+  			</div>
+
+
+
+
+
+  <div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Update Todo</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+    <!-- Modal body -->
+      <div class="modal-body">
+        
+          <input type="hidden" value="{{ todo.id }}" name="toupdate" >
+          <label>Heading</label><input id="headingu" class="input form__input" value="{{todo.heading}}"  name="heading" placeholder="{{todo.heading}}">
+	    <label>Date</label><input id="scheduleu" class="input form__input" type="date" name="calender" placeholder="{{todo.schedule}}" >
+	    <label>Description</label><textarea id="descriptionu" class="input form__input" value="{{todo.description}}" name="description" cols="10" rows="10" placeholder="{{todo.description}}"></textarea>
+          <center><button class="btn btn-warning" type="button" onclick="updateTodo()" >Update</button></center>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+  		{% endfor%}
+  		</div>
+  {% endif %}
+</div>
+	
+
+
+
+
+
+
+    <script>
+      function addToDo(){
+       	console.log(document.getElementById("heading").value);
+       event.preventDefault();
+            $.ajax({
+                 type:"POST",
+                 url:"{% url 'TodoAppView' %}",
+                 data:  {"csrfmiddlewaretoken":"{{csrf_token}}", "typ": 1,"heading":document.getElementById("heading").value, "description":document.getElementById("description").value, "schedule":document.getElementById("schedule").value}, // from form
+                 success: function(value){
+                    document.getElementById("heading").value = "";
+                    document.getElementById("description").value = "";
+                    document.getElementById("schedule").value = "";
+                    console.log(value);
+                    location.reload();
+                    $('#message').html("<h2>Added to your TODO List</h2>") 
+                    }
+            });
+            return false;
+       };
+
+
+
+
+       function deleteTodo(){
+       		console.log(document.getElementById("todelete").value);
+       		event.preventDefault();
+            $.ajax({
+                 type:"POST",
+                 url:"{% url 'TodoAppView' %}",
+                 data:  {"csrfmiddlewaretoken":"{{csrf_token}}","typ":2,"id":document.getElementById("todelete").value}, // from form
+                 
+                 success: function(value){
+                	console.log("Todo Deleted"); 
+                	location.reload();  
+                }
+            	});
+            return false;
+       };
+
+
+       function updateTodo(){
+       		console.log(document.getElementById("todelete"))
+       		event.preventDefault();
+            $.ajax({
+                 type:"POST",
+                 url:"{% url 'TodoAppView' %}",
+                 data:  {"csrfmiddlewaretoken":"{{csrf_token}}","typ":3,"id":document.getElementById("todelete").value ,"heading":document.getElementById("headingu").value, "description":document.getElementById("descriptionu").value, "schedule":document.getElementById("scheduleu").value}, // from form
+                 
+                 success: function(value){
+                	console.log("Todo Update"); 
+                	location.reload();  
+                }
+            	});
+            return false;
+       }
+    </script>
+
+
+
+
+</body>
+
+</html>
