@@ -40,7 +40,7 @@ Rest API to add, delete and update the TODO List.
 url(r'^api-auth/$', TodoAppView.as_view(), name="TodoAppView")
 ```
 
-If you visit the http://localhost:8000/api-auth/
+If we visit the http://localhost:8000/api-auth/
 
 We can see the following :
 ![Rest API](https://user-images.githubusercontent.com/25399528/54344004-12f27980-4666-11e9-9a19-ab14f831ece8.png)
@@ -54,5 +54,7 @@ We can see the following :
 2. Add or Delete or Update TODO LIST (through API, api developed using django restframework)
 
 Task Remaining:
+
 3. Mail the user as soon as it is time for his schedule (working.. getting some error, using django celery)
+
 4. Mark complete or incomplete schedules and show them to the user every 10 hr.
