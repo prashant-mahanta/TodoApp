@@ -16,3 +16,12 @@ $ source ./env/bin/activate
 $ cd todoapp
 $ python3 manage.py runserver
 ```
+
+Rest API to add, delete and update the TODO List.
+```python
+url(r'^api-auth/$', TodoAppView.as_view(), name="TodoAppView")
+```
+
+If you visit the http://localhost:8000/api-auth/
+We can see the following :
+![Rest API](https://user-images.githubusercontent.com/25399528/54344004-12f27980-4666-11e9-9a19-ab14f831ece8.png)
