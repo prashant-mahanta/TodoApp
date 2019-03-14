@@ -23,5 +23,10 @@ url(r'^api-auth/$', TodoAppView.as_view(), name="TodoAppView")
 ```
 
 If you visit the http://localhost:8000/api-auth/
+
 We can see the following :
 ![Rest API](https://user-images.githubusercontent.com/25399528/54344004-12f27980-4666-11e9-9a19-ab14f831ece8.png)
+
+
+# Demo (Interface)
+![TODO API INTERFACE](https://user-images.githubusercontent.com/25399528/54344287-84cac300-4666-11e9-98b6-65aa247e0b76.gif)
